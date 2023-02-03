@@ -1,19 +1,17 @@
 import type { GetServerSideProps } from "next/types";
 
 import { getServerSession } from "next-auth/next";
-import { signIn, useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { authOptions } from "./api/auth/[...nextauth]";
 
-export default function Home() {
+export default function Timeline() {
   const { data: session, status } = useSession();
   console.log(session, status);
   return (
     <main>
-      <h1 className="text-2xl">Welcome to 1000lbs journey!</h1>
-      <p>Sign in to start your journey.</p>
-      <button onClick={() => signIn(undefined, { callbackUrl: "/timeline" })}>
-        Sign in
-      </button>
+      This is timeline. You must be signed in to see this page.{" "}
+      {session?.user?.email}
+      <button onClick={() => signOut({ callbackUrl: "/" })}>Sign out</button>
     </main>
   );
 }
@@ -21,14 +19,18 @@ export default function Home() {
 export const getServerSideProps: GetServerSideProps<{}> = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
 
-  if (session) {
+  if (!session) {
     return {
       redirect: {
-        destination: "/timeline",
+        destination: "/",
         permanent: false,
       },
     };
   }
 
-  return { props: {} };
+  return {
+    props: {
+      session,
+    },
+  };
 };

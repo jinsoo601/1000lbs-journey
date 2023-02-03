@@ -7,3 +7,4 @@ Task List:
 - [x] Created firebase project in Web Console
 - [x] Initialized firestore
 - [x] Initialized firebase authentication (Google OAuth)
+- [x] Set up Authentication Flow using NextAuth and FirebaseAdapter
