@@ -1,6 +1,4 @@
-Task List:
-
-## 2/3/2023
+## Task List:
 
 - [x] Set up project with TailwindCSS
 - [x] Set up firebase
@@ -8,3 +6,19 @@ Task List:
 - [x] Initialized firestore
 - [x] Initialized firebase authentication (Google OAuth)
 - [x] Set up Authentication Flow using NextAuth and FirebaseAdapter
+- [x] Created page.tsx to manage session and layout
+- [ ] Create navbar.tsx (top bar on mobile, left bar on desktop)
+- [ ] Create all the base route files
+  - /journals
+    - index.tsx (shows all journal entries, sorted by date in desc order. previously timeline)
+    - \[slug\].tsx (detail page of existing journal entry. user can edit the entry, saved upon exit)
+    - new.tsx (UI equivalent to empty journal page, creating a separate page to avoid unnecessary network calls)
+  - statistics.tsx
+  - /goals
+    - index.tsx (shows all goals)
+    - \[slug\].tsx (detail page of existing goal. can edit goal here)
+    - new.tsx (UI equivalent to empty goal page, with 3 big ones templated)
+- [ ] Make floating button component
+- [ ] Make Workout card component to be used in journals/index page
+- [ ] Make Goal card component to be used in goals/index page
+- [ ] Make Graph component to be used in statistics page
