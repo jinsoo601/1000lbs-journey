@@ -7,7 +7,7 @@
 - [x] Initialized firebase authentication (Google OAuth)
 - [x] Set up Authentication Flow using NextAuth and FirebaseAdapter
 - [x] Created page.tsx to manage session and layout
-- [ ] Create navbar.tsx (top bar on mobile, left bar on desktop)
+- [x] Create navbar.tsx (top bar on mobile, left bar on desktop)
 - [x] Create all the base route files
   - /journals
     - index.tsx (shows all journal entries, sorted by date in desc order. previously timeline)
@@ -18,6 +18,7 @@
     - index.tsx (shows all goals)
     - \[slug\].tsx (detail page of existing goal. can edit goal here)
     - new.tsx (UI equivalent to empty goal page, with 3 big ones templated)
+- [ ] Add signout button in Settings page
 - [ ] Make floating button component
 - [ ] Make Workout card component to be used in journals/index page
 - [ ] Make Goal card component to be used in goals/index page
