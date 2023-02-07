@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<{}> = async (context) => {
   if (session) {
     return {
       redirect: {
-        destination: "/timeline",
+        destination: "/journals",
         permanent: false,
       },
     };
