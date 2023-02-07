@@ -9,10 +9,6 @@ export default function Home() {
   return (
     <Page>
       <h1 className="text-2xl">Welcome to 1000lbs journey!</h1>
-      <p>Sign in to start your journey.</p>
-      <button onClick={() => signIn(undefined, { callbackUrl: "/journals" })}>
-        Sign in
-      </button>
     </Page>
   );
 }
