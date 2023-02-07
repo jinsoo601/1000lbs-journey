@@ -8,7 +8,7 @@
 - [x] Set up Authentication Flow using NextAuth and FirebaseAdapter
 - [x] Created page.tsx to manage session and layout
 - [ ] Create navbar.tsx (top bar on mobile, left bar on desktop)
-- [ ] Create all the base route files
+- [x] Create all the base route files
   - /journals
     - index.tsx (shows all journal entries, sorted by date in desc order. previously timeline)
     - \[slug\].tsx (detail page of existing journal entry. user can edit the entry, saved upon exit)
