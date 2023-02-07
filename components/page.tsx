@@ -20,7 +20,9 @@ export default function Page({
   return (
     <>
       <Head title={title} />
-      <main className={font.className}>{children}</main>
+      <main className={`${font.className} text-indigo-200 bg-black h-screen`}>
+        {children}
+      </main>
     </>
   );
 }
