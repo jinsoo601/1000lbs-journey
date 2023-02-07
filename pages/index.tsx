@@ -1,16 +1,16 @@
-import type { GetServerSideProps } from "next/types";
-
-import { getServerSession } from "next-auth/next";
 import { signIn, useSession } from "next-auth/react";
-import { authOptions } from "./api/auth/[...nextauth]";
+
+import type { GetServerSideProps } from "next/types";
 import Page from "@/components/page";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
 
 export default function Home() {
   return (
     <Page>
       <h1 className="text-2xl">Welcome to 1000lbs journey!</h1>
       <p>Sign in to start your journey.</p>
-      <button onClick={() => signIn(undefined, { callbackUrl: "/timeline" })}>
+      <button onClick={() => signIn(undefined, { callbackUrl: "/journals" })}>
         Sign in
       </button>
     </Page>
