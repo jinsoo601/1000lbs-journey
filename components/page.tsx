@@ -1,4 +1,5 @@
 import Head from "./head";
+import Navbar from "./navbar";
 import { Raleway } from "@next/font/google";
 import React from "react";
 import { useSession } from "next-auth/react";
@@ -20,8 +21,13 @@ export default function Page({
   return (
     <>
       <Head title={title} />
-      <main className={`${font.className} text-indigo-200 bg-black h-screen`}>
-        {children}
+      <main
+        className={`${font.className} text-indigo-200 bg-black h-screen p-6`}
+      >
+        <div className="max-w-screen-md mx-auto">
+          <Navbar />
+          {children}
+        </div>
       </main>
     </>
   );
