@@ -1,12 +1,15 @@
-import { useSession } from "next-auth/react";
-import React from "react";
 import Head from "./head";
+import { Raleway } from "@next/font/google";
+import React from "react";
+import { useSession } from "next-auth/react";
 
 type Props = {
   children: React.ReactNode;
   isProtected?: boolean;
   title?: string;
 };
+
+const font = Raleway({ subsets: ["latin"] });
 
 export default function Page({
   children,
@@ -17,7 +20,7 @@ export default function Page({
   return (
     <>
       <Head title={title} />
-      <main>{children}</main>
+      <main className={font.className}>{children}</main>
     </>
   );
 }
