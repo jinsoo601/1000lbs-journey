@@ -18,8 +18,8 @@
     - index.tsx (shows all goals)
     - \[slug\].tsx (detail page of existing goal. can edit goal here)
     - new.tsx (UI equivalent to empty goal page, with 3 big ones templated)
-- [ ] Add signout button in Settings page
-- [ ] Make floating button component
+- [x] Add signout button in Settings page
+- [x] Make floating button component
 - [ ] Make Workout card component to be used in journals/index page
 - [ ] Make Goal card component to be used in goals/index page
 - [ ] Make Graph component to be used in statistics page

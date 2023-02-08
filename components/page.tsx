@@ -24,7 +24,7 @@ export default function Page({
       <main
         className={`${font.className} text-indigo-200 bg-black h-screen p-6`}
       >
-        <div className="max-w-screen-md mx-auto">
+        <div className="max-w-screen-md mx-auto relative h-full">
           <Navbar />
           {children}
         </div>
