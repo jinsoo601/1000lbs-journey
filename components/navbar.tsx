@@ -8,7 +8,7 @@ export default function Navbar() {
   const { status } = useSession();
   return (
     <nav className="flex justify-between items-start relative md:items-center">
-      <div className="text-2xl font-semibold ">1000LBS</div>
+      <h1 className="text-2xl font-semibold">1000LBS</h1>
       {status === "unauthenticated" ? (
         <button onClick={() => signIn(undefined, { callbackUrl: "/journals" })}>
           Sign in

@@ -1,4 +1,4 @@
-import FloatingButton from "@/components/floating-button";
+import FloatingLinkButton from "@/components/floating-link-button";
 import Page from "@/components/page";
 import { useSession } from "next-auth/react";
 
@@ -7,7 +7,9 @@ export default function Journals() {
   return (
     <Page isProtected={true}>
       <p>Show all journals from {session?.user?.email}</p>
-      <FloatingButton href="/journals/new">+ New Journal</FloatingButton>
+      <FloatingLinkButton href="/journals/new">
+        + New Journal
+      </FloatingLinkButton>
     </Page>
   );
 }

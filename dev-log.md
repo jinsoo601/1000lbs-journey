@@ -20,6 +20,11 @@
     - new.tsx (UI equivalent to empty goal page, with 3 big ones templated)
 - [x] Add signout button in Settings page
 - [x] Make floating button component
+- [x] Make new journal page
+- [ ] Make common button component
+- [ ] Make modal component
+- [ ] Hook up firestore to new journal page
+- [ ] Option to add a custom workout in journal modal
 - [ ] Make Workout card component to be used in journals/index page
 - [ ] Make Goal card component to be used in goals/index page
 - [ ] Make Graph component to be used in statistics page
