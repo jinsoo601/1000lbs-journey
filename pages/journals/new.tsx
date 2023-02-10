@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 
 import Button from "@/components/button";
 import FloatingButton from "@/components/floating-button";
+import Modal from "@/components/modal";
 import Page from "@/components/page";
 import Set from "@/components/Set";
 
@@ -98,7 +99,7 @@ export default function NewJournal() {
         </div>
       </div>
       <FloatingButton onClick={() => {}}>Save</FloatingButton>
-      <Modal
+      <NewWorkoutModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={onModalSubmit}
@@ -107,7 +108,7 @@ export default function NewJournal() {
   );
 }
 
-function Modal({
+function NewWorkoutModal({
   isOpen,
   onClose,
   onSubmit,
@@ -122,42 +123,30 @@ function Modal({
     setSelectedWorkout("");
   };
   return isOpen ? (
-    <>
-      <div
-        className="fixed w-screen h-screen left-0 top-0 backdrop-blur-sm"
-        onClick={closeAndCleanUp}
-      />
-      <div className="fixed w-64 h-80 left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] border-2 border-indigo-200 p-4 flex flex-col justify-between bg-black">
-        <header className="flex justify-between items-start">
-          <h3 className="text-lg">Select move</h3>
-          <button className="text-3xl leading-4" onClick={closeAndCleanUp}>
-            ×
-          </button>
-        </header>
-        <div className="flex flex-col gap-1">
-          {["Deadlift", "Bench Press", "Squat"].map((name) => (
-            <Button
-              key={name}
-              className={`border-2 border-indigo-200 ${
-                selectedWorkout !== name && "bg-black text-indigo-200"
-              }`}
-              onClick={() => setSelectedWorkout(name)}
-            >
-              {name}
-            </Button>
-          ))}
-        </div>
-        <Button
-          className={`self-end ${selectedWorkout.length === 0 && "opacity-50"}`}
-          isDisabled={selectedWorkout.length === 0}
-          onClick={() => {
-            onSubmit(selectedWorkout);
-            closeAndCleanUp();
-          }}
-        >
-          Submit
-        </Button>
+    <Modal header="Select move" onClose={closeAndCleanUp}>
+      <div className="flex flex-col gap-1">
+        {["Deadlift", "Bench Press", "Squat"].map((name) => (
+          <Button
+            key={name}
+            className={`border-2 border-indigo-200 ${
+              selectedWorkout !== name && "bg-black text-indigo-200"
+            }`}
+            onClick={() => setSelectedWorkout(name)}
+          >
+            {name}
+          </Button>
+        ))}
       </div>
-    </>
+      <Button
+        className={`self-end ${selectedWorkout.length === 0 && "opacity-50"}`}
+        isDisabled={selectedWorkout.length === 0}
+        onClick={() => {
+          onSubmit(selectedWorkout);
+          closeAndCleanUp();
+        }}
+      >
+        Submit
+      </Button>
+    </Modal>
   ) : null;
 }
