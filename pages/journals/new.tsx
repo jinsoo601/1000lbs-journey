@@ -1,4 +1,5 @@
 import type { TSet, TWorkout } from "@/types";
+import { addDoc, collection } from "firebase/firestore";
 import { useCallback, useState } from "react";
 
 import Button from "@/components/button";
@@ -6,10 +7,13 @@ import FloatingButton from "@/components/floating-button";
 import Modal from "@/components/modal";
 import Page from "@/components/page";
 import Set from "@/components/Set";
+import db from "@/firebase";
+import { useRouter } from "next/router";
 
 const NEW_SET: TSet = { weight: { value: 135, unit: "lbs" }, reps: 10 };
 
 export default function NewJournal() {
+  const router = useRouter();
   const [workouts, setWorkouts] = useState<TWorkout[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newWorkoutIndex, setNewWorkoutIndex] = useState(0);
@@ -51,6 +55,18 @@ export default function NewJournal() {
         return { ...workout };
       })
     );
+  };
+  const onSave = () => {
+    addDoc(collection(db, "journals"), {
+      date: Intl.DateTimeFormat("en").format(),
+      workouts,
+    })
+      .then(() => {
+        router.push("/journals");
+      })
+      .catch(() => {
+        alert("Save failed!");
+      });
   };
   return (
     <Page isProtected={true}>
@@ -98,7 +114,9 @@ export default function NewJournal() {
           </Button>
         </div>
       </div>
-      <FloatingButton onClick={() => {}}>Save</FloatingButton>
+      <FloatingButton onClick={onSave} isDisabled={workouts.length === 0}>
+        Save
+      </FloatingButton>
       <NewWorkoutModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -117,31 +135,31 @@ function NewWorkoutModal({
   onClose: () => void;
   onSubmit: (workoutName: string) => void;
 }) {
-  const [selectedWorkout, setSelectedWorkout] = useState("");
+  const [selectedWorkoutName, setSelectedWorkoutName] = useState("");
   const closeAndCleanUp = () => {
     onClose();
-    setSelectedWorkout("");
+    setSelectedWorkoutName("");
   };
   return isOpen ? (
     <Modal header="Select move" onClose={closeAndCleanUp}>
-      <div className="flex flex-col gap-1">
-        {["Deadlift", "Bench Press", "Squat"].map((name) => (
+      <div className="flex flex-col gap-2">
+        {["Deadlift", "Bench Press", "Squat", "Other shit"].map((name) => (
           <Button
             key={name}
-            className={`border-2 border-indigo-200 ${
-              selectedWorkout !== name && "bg-black text-indigo-200"
-            }`}
-            onClick={() => setSelectedWorkout(name)}
+            onClick={() => setSelectedWorkoutName(name)}
+            isInverted={selectedWorkoutName !== name}
           >
             {name}
           </Button>
         ))}
       </div>
       <Button
-        className={`self-end ${selectedWorkout.length === 0 && "opacity-50"}`}
-        isDisabled={selectedWorkout.length === 0}
+        className={`self-end ${
+          selectedWorkoutName.length === 0 && "opacity-50"
+        }`}
+        isDisabled={selectedWorkoutName.length === 0}
         onClick={() => {
-          onSubmit(selectedWorkout);
+          onSubmit(selectedWorkoutName);
           closeAndCleanUp();
         }}
       >
