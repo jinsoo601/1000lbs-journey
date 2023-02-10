@@ -1,6 +1,7 @@
 import type { TSet, TWorkout } from "@/types";
 import { useCallback, useState } from "react";
 
+import Button from "@/components/button";
 import FloatingButton from "@/components/floating-button";
 import Page from "@/components/page";
 import Set from "@/components/Set";
@@ -56,8 +57,8 @@ export default function NewJournal() {
       <div className="divide-y">
         {workouts.map(({ name, sets }, workoutIndex) => (
           <div key={`workout-${workoutIndex}`} className="p-2">
-            <button
-              className="bg-indigo-200 font-semibold text-black px-2 rounded-md mb-2 text-lg"
+            <Button
+              className="py-0 mb-2 text-lg"
               onClick={() => {
                 setNewWorkoutIndex(workoutIndex);
                 setIsModalOpen(true);
@@ -65,7 +66,7 @@ export default function NewJournal() {
             >
               {name}
               <span className="text-xs ml-1">(✎)</span>
-            </button>
+            </Button>
             <div className="flex gap-2 flex-wrap">
               {sets.map((set, setIndex) => (
                 <Set
@@ -76,25 +77,24 @@ export default function NewJournal() {
                   }
                 />
               ))}
-              <button
-                className="bg-indigo-200 font-semibold px-3 text-black rounded-md text-4xl leading-6"
+              <Button
+                className="py-0 px-3 text-4xl leading-6"
                 onClick={() => onAddSet(workoutIndex)}
               >
                 +
-              </button>
+              </Button>
             </div>
           </div>
         ))}
         <div className="p-2">
-          <button
-            className="bg-indigo-200 font-semibold text-black p-2 rounded-md"
+          <Button
             onClick={() => {
               setNewWorkoutIndex(workouts.length);
               setIsModalOpen(true);
             }}
           >
             Add move
-          </button>
+          </Button>
         </div>
       </div>
       <FloatingButton onClick={() => {}}>Save</FloatingButton>
@@ -136,29 +136,27 @@ function Modal({
         </header>
         <div className="flex flex-col gap-1">
           {["Deadlift", "Bench Press", "Squat"].map((name) => (
-            <button
+            <Button
               key={name}
-              className={`border-2 border-indigo-200 font-semibold p-2 rounded-md ${
-                selectedWorkout === name && "bg-indigo-200 text-black"
+              className={`border-2 border-indigo-200 ${
+                selectedWorkout !== name && "bg-black text-indigo-200"
               }`}
               onClick={() => setSelectedWorkout(name)}
             >
               {name}
-            </button>
+            </Button>
           ))}
         </div>
-        <button
-          className={`bg-indigo-200 font-semibold text-black p-2 rounded-md self-end ${
-            selectedWorkout.length === 0 && "opacity-50"
-          }`}
-          disabled={selectedWorkout.length === 0}
+        <Button
+          className={`self-end ${selectedWorkout.length === 0 && "opacity-50"}`}
+          isDisabled={selectedWorkout.length === 0}
           onClick={() => {
             onSubmit(selectedWorkout);
             closeAndCleanUp();
           }}
         >
           Submit
-        </button>
+        </Button>
       </div>
     </>
   ) : null;

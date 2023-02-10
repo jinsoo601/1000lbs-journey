@@ -1,3 +1,5 @@
+import Button from "./button";
+
 type Props = {
   children: string;
   onClick: () => void;
@@ -5,11 +7,8 @@ type Props = {
 
 export default function FloatingButton({ children, onClick }: Props) {
   return (
-    <button
-      onClick={onClick}
-      className="absolute bottom-4 right-0 bg-indigo-200 font-semibold text-black p-2 rounded-md"
-    >
+    <Button onClick={onClick} className="absolute bottom-4 right-0">
       {children}
-    </button>
+    </Button>
   );
 }
