@@ -1,3 +1,10 @@
+export type TJournal = {
+  id: string;
+  /** date string mm/dd/yyyy */
+  date: string;
+  workouts: TWorkout[];
+};
+
 export type TWorkout = {
   name: string;
   sets: TSet[];

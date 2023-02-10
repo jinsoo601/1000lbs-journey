@@ -1,12 +1,20 @@
+import { useEffect, useState } from "react";
+
 import FloatingLinkButton from "@/components/floating-link-button";
 import Page from "@/components/page";
-import { useSession } from "next-auth/react";
+import type { TJournal } from "@/types";
+import { getJournals } from "@/db";
 
 export default function Journals() {
-  const { data: session } = useSession();
+  const [journals, setJournals] = useState<TJournal[]>([]);
+  useEffect(() => {
+    getJournals().then((journals) => setJournals(journals));
+  }, []);
   return (
     <Page isProtected={true}>
-      <p>Show all journals from {session?.user?.email}</p>
+      {journals.map((journal) => (
+        <div key={journal.id}>{journal.date}</div>
+      ))}
       <FloatingLinkButton href="/journals/new">
         + New Journal
       </FloatingLinkButton>

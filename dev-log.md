@@ -23,7 +23,8 @@
 - [x] Make new journal page
 - [x] Make common button component
 - [x] Make modal component
-- [ ] Hook up firestore to new journal page
+- [x] Hook up firestore to new journal page
+- [x] Write journal CRUD functions in /db
 - [ ] Option to add a custom workout in journal modal
 - [ ] Make Workout card component to be used in journals/index page
 - [ ] Make Goal card component to be used in goals/index page

@@ -1,5 +1,4 @@
 import type { TSet, TWorkout } from "@/types";
-import { addDoc, collection } from "firebase/firestore";
 import { useCallback, useState } from "react";
 
 import Button from "@/components/button";
@@ -7,7 +6,7 @@ import FloatingButton from "@/components/floating-button";
 import Modal from "@/components/modal";
 import Page from "@/components/page";
 import Set from "@/components/Set";
-import db from "@/firebase";
+import { createNewJournal } from "@/db";
 import { useRouter } from "next/router";
 
 const NEW_SET: TSet = { weight: { value: 135, unit: "lbs" }, reps: 10 };
@@ -57,10 +56,7 @@ export default function NewJournal() {
     );
   };
   const onSave = () => {
-    addDoc(collection(db, "journals"), {
-      date: Intl.DateTimeFormat("en").format(),
-      workouts,
-    })
+    createNewJournal(workouts)
       .then(() => {
         router.push("/journals");
       })
