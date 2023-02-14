@@ -21,6 +21,7 @@ export type TWeight = {
 };
 
 export type TGoal = {
+  id: string;
   until: string; // date string
   label: string;
   benchPress: TSet;

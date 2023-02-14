@@ -1,4 +1,4 @@
-import { TJournal, TWorkout } from "@/types";
+import { TGoal, TJournal, TWorkout } from "@/types";
 import {
   addDoc,
   collection,
@@ -50,4 +50,29 @@ export const updateJournal = (id: string, workouts: TWorkout[]) => {
 
 export const deleteJournal = (id: string) => {
   return deleteDoc(doc(db, "journals", id));
+};
+
+export const createNewGoal = (goal: Omit<TGoal, "id">) => {
+  return addDoc(collection(db, "goals"), goal);
+};
+
+export const getGoals = async (): Promise<TGoal[]> => {
+  const querySnapshot = await getDocs(collection(db, "goals"));
+  return querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    until: doc.data().until,
+    label: doc.data().label,
+    benchPress: doc.data().benchPress,
+    deadlift: doc.data().deadlift,
+    squat: doc.data().squat,
+  }));
+};
+
+export const updateGoal = (id: string, goal: TGoal) => {
+  const docRef = doc(db, "goals", id);
+  return setDoc(docRef, goal);
+};
+
+export const deleteGoal = (id: string) => {
+  return deleteDoc(doc(db, "goals", id));
 };
