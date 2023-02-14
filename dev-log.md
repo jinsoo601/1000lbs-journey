@@ -25,8 +25,10 @@
 - [x] Make modal component
 - [x] Hook up firestore to new journal page
 - [x] Write journal CRUD functions in /db
+- [ ] Write goal CRUD functions
+- [ ] Make new goal page
 - [ ] Option to add a custom workout in journal modal
-- [ ] Make Workout card component to be used in journals/index page
+- [x] Make Workout card component to be used in journals/index page
 - [ ] Make Goal card component to be used in goals/index page
 - [ ] Make Graph component to be used in statistics page
 - [ ] Add UI tests to test the components

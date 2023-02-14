@@ -24,9 +24,9 @@ export default function Page({
       <main
         className={`${font.className} text-indigo-200 bg-black h-screen p-6`}
       >
-        <div className="max-w-screen-md mx-auto relative h-full">
+        <div className="max-w-screen-md mx-auto relative h-full flex flex-col">
           <Navbar />
-          {children}
+          <div className="grow overflow-auto no-scrollbar">{children}</div>
         </div>
       </main>
     </>
