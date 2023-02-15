@@ -1,21 +1,36 @@
-import type { TSet, TWorkout } from "@/types";
-import { useCallback, useState } from "react";
+import { TJournal, TSet, TWorkout } from "@/types";
+import { getJournal, updateJournal } from "@/db";
+import { useCallback, useEffect, useState } from "react";
 
 import Button from "@/components/button";
 import FloatingButton from "@/components/floating-button";
 import NewWorkoutModal from "@/components/new-workout-modal";
 import Page from "@/components/page";
 import Set from "@/components/Set";
-import { createNewJournal } from "@/db";
 import { useRouter } from "next/router";
 
 const NEW_SET: TSet = { weight: { value: 135, unit: "lbs" }, reps: 10 };
 
-export default function NewJournal() {
+export default function Journal() {
   const router = useRouter();
+  const [date, setDate] = useState<string>("");
   const [workouts, setWorkouts] = useState<TWorkout[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newWorkoutIndex, setNewWorkoutIndex] = useState(0);
+  useEffect(() => {
+    try {
+      const journal: TJournal = JSON.parse(router.query.journal as string);
+      setWorkouts(journal.workouts);
+      setDate(journal.date);
+    } catch (e) {
+      if (typeof router.query.id === "string") {
+        getJournal(router.query.id).then((journal) => {
+          setWorkouts(journal?.workouts ?? []);
+          setDate(journal?.date ?? "");
+        });
+      }
+    }
+  }, [router.query.id, router.query.journal]);
   const onModalSubmit = useCallback(
     (name: string) => {
       if (newWorkoutIndex === workouts.length) {
@@ -56,7 +71,7 @@ export default function NewJournal() {
     );
   };
   const onSave = () => {
-    createNewJournal(workouts)
+    updateJournal(router.query.id as string, workouts)
       .then(() => {
         router.push("/journals");
       })
@@ -66,7 +81,7 @@ export default function NewJournal() {
   };
   return (
     <Page isProtected={true}>
-      <h2 className="text-xl my-8">{Intl.DateTimeFormat("en").format()}</h2>
+      <h2 className="text-xl my-8">{date}</h2>
       <div className="divide-y">
         {workouts.map(({ name, sets }, workoutIndex) => (
           <div key={`workout-${workoutIndex}`} className="p-2">

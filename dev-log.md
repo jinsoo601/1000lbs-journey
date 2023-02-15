@@ -29,6 +29,7 @@
 - [ ] Make new goal page
 - [ ] Option to add a custom workout in journal modal
 - [x] Make Workout card component to be used in journals/index page
+- [x] Make edit workout page
 - [ ] Make Goal card component to be used in goals/index page
 - [ ] Make Graph component to be used in statistics page
 - [ ] Add UI tests to test the components

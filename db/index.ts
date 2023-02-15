@@ -4,6 +4,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   setDoc,
@@ -39,6 +40,21 @@ export const getJournals = async (): Promise<TJournal[]> => {
     date: doc.data().date,
     workouts: doc.data().workouts,
   }));
+};
+
+export const getJournal = async (id: string): Promise<TJournal | undefined> => {
+  const docRef = doc(db, "journals", id);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return {
+      id: docSnap.id,
+      date: data.date,
+      workouts: data.workouts,
+    };
+  } else {
+    return undefined;
+  }
 };
 
 export const updateJournal = (id: string, workouts: TWorkout[]) => {
