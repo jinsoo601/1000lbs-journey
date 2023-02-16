@@ -1,5 +1,5 @@
 import { TJournal, TSet, TWorkout } from "@/types";
-import { getJournal, updateJournal } from "@/db";
+import { createNewJournal, getJournal, updateJournal } from "@/db";
 import { useCallback, useEffect, useState } from "react";
 
 import Button from "@/components/button";
@@ -17,20 +17,28 @@ export default function Journal() {
   const [workouts, setWorkouts] = useState<TWorkout[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newWorkoutIndex, setNewWorkoutIndex] = useState(0);
+
   useEffect(() => {
-    try {
-      const journal: TJournal = JSON.parse(router.query.journal as string);
-      setWorkouts(journal.workouts);
-      setDate(journal.date);
-    } catch (e) {
-      if (typeof router.query.id === "string") {
-        getJournal(router.query.id).then((journal) => {
-          setWorkouts(journal?.workouts ?? []);
-          setDate(journal?.date ?? "");
-        });
+    if (router.query.id === "new") {
+      // if new journal, simply set the date to today's date
+      setDate(Intl.DateTimeFormat("en").format());
+    } else {
+      // if existing journal, populate state from queryParam or db
+      try {
+        const journal: TJournal = JSON.parse(router.query.journal as string);
+        setWorkouts(journal.workouts);
+        setDate(journal.date);
+      } catch (e) {
+        if (typeof router.query.id === "string") {
+          getJournal(router.query.id).then((journal) => {
+            setWorkouts(journal?.workouts ?? []);
+            setDate(journal?.date ?? "");
+          });
+        }
       }
     }
   }, [router.query.id, router.query.journal]);
+
   const onModalSubmit = useCallback(
     (name: string) => {
       if (newWorkoutIndex === workouts.length) {
@@ -71,13 +79,23 @@ export default function Journal() {
     );
   };
   const onSave = () => {
-    updateJournal(router.query.id as string, workouts)
-      .then(() => {
-        router.push("/journals");
-      })
-      .catch(() => {
-        alert("Save failed!");
-      });
+    if (router.query.id === "new") {
+      createNewJournal(workouts)
+        .then(() => {
+          router.push("/journals");
+        })
+        .catch(() => {
+          alert("Save failed!");
+        });
+    } else {
+      updateJournal(router.query.id as string, workouts)
+        .then(() => {
+          router.push("/journals");
+        })
+        .catch(() => {
+          alert("Save failed!");
+        });
+    }
   };
   return (
     <Page isProtected={true}>
