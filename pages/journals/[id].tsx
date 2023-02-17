@@ -6,7 +6,7 @@ import Button from "@/components/button";
 import FloatingButton from "@/components/floating-button";
 import NewWorkoutModal from "@/components/new-workout-modal";
 import Page from "@/components/page";
-import Set from "@/components/Set";
+import Set from "@/components/set";
 import { useRouter } from "next/router";
 
 const NEW_SET: TSet = { weight: { value: 135, unit: "lbs" }, reps: 10 };

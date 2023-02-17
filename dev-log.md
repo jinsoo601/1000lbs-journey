@@ -29,8 +29,11 @@
 - [x] Make Workout card component to be used in journals/index page
 - [x] Make edit workout page
 - [x] Combine new workout page and edit workout page
-- [ ] Make new/edit goal page
+- [x] Make new/edit goal page
+- [x] Make Goal card component to be used in goals/index page
+- [ ] Add user_id field to journal and goal and query by user_id
+- [ ] Style goal page
 - [ ] Option to add a custom workout in journal modal
-- [ ] Make Goal card component to be used in goals/index page
 - [ ] Make Graph component to be used in statistics page
+- [ ] Remove nextauth
 - [ ] Add UI tests to test the components

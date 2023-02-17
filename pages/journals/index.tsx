@@ -9,7 +9,7 @@ import { getJournals } from "@/db";
 export default function Journals() {
   const [journals, setJournals] = useState<TJournal[]>([]);
   useEffect(() => {
-    getJournals().then((journals) => setJournals(journals));
+    getJournals().then(setJournals);
   }, []);
   return (
     <Page isProtected={true}>

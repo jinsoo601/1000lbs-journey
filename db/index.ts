@@ -84,7 +84,25 @@ export const getGoals = async (): Promise<TGoal[]> => {
   }));
 };
 
-export const updateGoal = (id: string, goal: TGoal) => {
+export const getGoal = async (id: string): Promise<TGoal | undefined> => {
+  const docRef = doc(db, "goals", id);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return {
+      id: docSnap.id,
+      until: data.until,
+      label: data.label,
+      deadlift: data.deadlift,
+      squat: data.squat,
+      benchPress: data.benchPress,
+    };
+  } else {
+    return undefined;
+  }
+};
+
+export const updateGoal = (id: string, goal: Omit<TGoal, "id">) => {
   const docRef = doc(db, "goals", id);
   return setDoc(docRef, goal);
 };
