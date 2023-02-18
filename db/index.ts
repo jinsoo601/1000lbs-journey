@@ -7,8 +7,10 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
@@ -25,16 +27,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export const createNewJournal = (workouts: TWorkout[]) => {
-  const newJournal: Omit<TJournal, "id"> = {
+export const createNewJournal = (userId: string, workouts: TWorkout[]) => {
+  const newJournal = {
+    userId,
     date: Intl.DateTimeFormat("en").format(),
     workouts,
   };
   return addDoc(collection(db, "journals"), newJournal);
 };
 
-export const getJournals = async (): Promise<TJournal[]> => {
-  const querySnapshot = await getDocs(collection(db, "journals"));
+export const getJournals = async (userId: string): Promise<TJournal[]> => {
+  const collectionRef = collection(db, "journals");
+  const querySnapshot = await getDocs(
+    query(collectionRef, where("userId", "==", userId))
+  );
   return querySnapshot.docs.map((doc) => ({
     id: doc.id,
     date: doc.data().date,
@@ -68,12 +74,15 @@ export const deleteJournal = (id: string) => {
   return deleteDoc(doc(db, "journals", id));
 };
 
-export const createNewGoal = (goal: Omit<TGoal, "id">) => {
-  return addDoc(collection(db, "goals"), goal);
+export const createNewGoal = (userId: string, goal: Omit<TGoal, "id">) => {
+  return addDoc(collection(db, "goals"), { ...goal, userId });
 };
 
-export const getGoals = async (): Promise<TGoal[]> => {
-  const querySnapshot = await getDocs(collection(db, "goals"));
+export const getGoals = async (userId: string): Promise<TGoal[]> => {
+  const collectionRef = collection(db, "goals");
+  const querySnapshot = await getDocs(
+    query(collectionRef, where("userId", "==", userId))
+  );
   return querySnapshot.docs.map((doc) => ({
     id: doc.id,
     until: doc.data().until,

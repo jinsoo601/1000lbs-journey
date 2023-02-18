@@ -1,7 +1,6 @@
 export type TJournal = {
   id: string;
-  /** date string mm/dd/yyyy */
-  date: string;
+  date: string; // date string mm/dd/yyyy
   workouts: TWorkout[];
 };
 
@@ -22,7 +21,7 @@ export type TWeight = {
 
 export type TGoal = {
   id: string;
-  until: string; // date string
+  until: string; // date string mm/dd/yyyy
   label: string;
   benchPress: TSet;
   deadlift: TSet;

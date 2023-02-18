@@ -5,12 +5,18 @@ import GoalCard from "@/components/goal-card";
 import Page from "@/components/page";
 import type { TGoal } from "@/types";
 import { getGoals } from "@/db";
+import { useSession } from "next-auth/react";
 
 export default function Goals() {
+  const { data: session } = useSession();
   const [goals, setGoals] = useState<TGoal[]>([]);
   useEffect(() => {
-    getGoals().then(setGoals);
-  }, []);
+    // @ts-ignore
+    const userId: string | undefined = session?.user?.id;
+    if (userId) {
+      getGoals(userId).then(setGoals);
+    }
+  }, [session?.user]);
   return (
     <Page isProtected={true}>
       <h2 className="text-xl my-8">My Goals</h2>

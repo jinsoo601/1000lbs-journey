@@ -6,9 +6,11 @@ import FloatingButton from "@/components/floating-button";
 import Page from "@/components/page";
 import Set from "@/components/set";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 export default function Goal() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [label, setLabel] = useState("");
   const [until, setUntil] = useState("");
   const [deadlift, setDeadlift] = useState<TSet>({
@@ -53,7 +55,9 @@ export default function Goal() {
 
   const onSave = () => {
     if (router.query.id === "new") {
-      createNewGoal({
+      // @ts-ignore
+      const userId: string = session?.user?.id;
+      createNewGoal(userId, {
         label,
         until,
         deadlift,

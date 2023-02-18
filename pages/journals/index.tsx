@@ -5,12 +5,18 @@ import JournalCard from "@/components/journal-card";
 import Page from "@/components/page";
 import type { TJournal } from "@/types";
 import { getJournals } from "@/db";
+import { useSession } from "next-auth/react";
 
 export default function Journals() {
+  const { data: session } = useSession();
   const [journals, setJournals] = useState<TJournal[]>([]);
   useEffect(() => {
-    getJournals().then(setJournals);
-  }, []);
+    // @ts-ignore
+    const userId: string | undefined = session?.user?.id;
+    if (userId) {
+      getJournals(userId).then(setJournals);
+    }
+  }, [session?.user]);
   return (
     <Page isProtected={true}>
       <h2 className="text-xl my-8">My Journals</h2>

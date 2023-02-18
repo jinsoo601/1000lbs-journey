@@ -1,5 +1,3 @@
-import { signIn, useSession } from "next-auth/react";
-
 import type { GetServerSideProps } from "next/types";
 import Page from "@/components/page";
 import { authOptions } from "./api/auth/[...nextauth]";

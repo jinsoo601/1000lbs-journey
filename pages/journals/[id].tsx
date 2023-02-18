@@ -8,11 +8,13 @@ import NewWorkoutModal from "@/components/new-workout-modal";
 import Page from "@/components/page";
 import Set from "@/components/set";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const NEW_SET: TSet = { weight: { value: 135, unit: "lbs" }, reps: 10 };
 
 export default function Journal() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [date, setDate] = useState<string>("");
   const [workouts, setWorkouts] = useState<TWorkout[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,7 +82,9 @@ export default function Journal() {
   };
   const onSave = () => {
     if (router.query.id === "new") {
-      createNewJournal(workouts)
+      // @ts-ignore
+      const userId: string = session?.user?.id;
+      createNewJournal(userId, workouts)
         .then(() => {
           router.push("/journals");
         })

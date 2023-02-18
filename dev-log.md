@@ -31,7 +31,7 @@
 - [x] Combine new workout page and edit workout page
 - [x] Make new/edit goal page
 - [x] Make Goal card component to be used in goals/index page
-- [ ] Add user_id field to journal and goal and query by user_id
+- [x] Add user_id field to journal and goal and query by user_id
 - [ ] Style goal page
 - [ ] Option to add a custom workout in journal modal
 - [ ] Make Graph component to be used in statistics page
