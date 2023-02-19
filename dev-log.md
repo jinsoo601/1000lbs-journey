@@ -32,7 +32,7 @@
 - [x] Make new/edit goal page
 - [x] Make Goal card component to be used in goals/index page
 - [x] Add user_id field to journal and goal and query by user_id
-- [ ] Style goal page
+- [x] Style goal page
 - [ ] Option to add a custom workout in journal modal
 - [ ] Make Graph component to be used in statistics page
 - [ ] Remove nextauth

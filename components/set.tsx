@@ -9,26 +9,43 @@ const REPS_OPTIONS = Array.from({ length: 50 }, (_, index) => index + 1);
 
 type Props = {
   set: TSet;
-  onChangeSet: (set: TSet) => void;
+  onChangeSet?: (set: TSet) => void;
+  noBorder?: boolean;
 };
 
-export default function Set({ set, onChangeSet }: Props) {
+export default function Set({ set, onChangeSet, noBorder = false }: Props) {
   return (
-    <div className="border-2 border-indigo-200 rounded-md p-1">
-      <EditableNumber
-        value={set.weight.value.toFixed(1)}
-        setValue={(value) =>
-          onChangeSet({ ...set, weight: { ...set.weight, value } })
-        }
-        options={WEIGHT_OPTIONS}
-      />
+    <div
+      className={`${
+        noBorder ? "" : "border-2 border-indigo-200 rounded-md"
+      } p-1 shrink-0`}
+    >
+      {onChangeSet ? (
+        <EditableNumber
+          value={set.weight.value.toFixed(1)}
+          setValue={(value) =>
+            onChangeSet({ ...set, weight: { ...set.weight, value } })
+          }
+          options={WEIGHT_OPTIONS}
+        />
+      ) : (
+        <span className="bg-indigo-200 font-semibold text-black px-1 rounded">
+          {set.weight.value.toFixed(1)}
+        </span>
+      )}
       <em className="text-xs align-bottom ml-1">{set.weight.unit}</em>
       <span className="mx-1">×</span>
-      <EditableNumber
-        value={set.reps}
-        setValue={(value) => onChangeSet({ ...set, reps: value })}
-        options={REPS_OPTIONS}
-      />
+      {onChangeSet ? (
+        <EditableNumber
+          value={set.reps}
+          setValue={(value) => onChangeSet({ ...set, reps: value })}
+          options={REPS_OPTIONS}
+        />
+      ) : (
+        <span className="bg-indigo-200 font-semibold text-black px-1 rounded">
+          {set.reps}
+        </span>
+      )}
     </div>
   );
 }

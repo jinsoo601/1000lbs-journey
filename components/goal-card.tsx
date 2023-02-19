@@ -6,11 +6,13 @@ type Props = {
   goal: TGoal;
 };
 
+const DOTS = new Array(100).fill(".").join(" ");
+
 export default function GoalCard({ goal }: Props) {
   const router = useRouter();
   return (
     <div
-      className="border-2 border-indigo-200 p-2 mt-4"
+      className="border-2 border-indigo-200 p-4 mt-4"
       onClick={() =>
         router.push(
           {
@@ -22,18 +24,27 @@ export default function GoalCard({ goal }: Props) {
       }
       role="button"
     >
-      <p className="text-xl">{`${goal.label} (by ${goal.until})`}</p>
-      <div className="flex items-center">
-        <span className="text-lg">Deadlift: </span>
-        <Set set={goal.deadlift} onChangeSet={() => {}} />
+      <p className="text-lg text-center">
+        {goal.label}
+        <span className="text-sm ml-2">(by {goal.until})</span>
+      </p>
+      <div className="flex items-center justify-center mt-2">
+        <span className="w-1/2 overflow-hidden whitespace-nowrap">
+          Deadlift {DOTS}
+        </span>
+        <Set set={goal.deadlift} noBorder />
       </div>
-      <div className="flex items-center">
-        <span className="text-lg">Squat: </span>
-        <Set set={goal.squat} onChangeSet={() => {}} />
+      <div className="flex items-center justify-center mt-2">
+        <span className="w-1/2 overflow-hidden whitespace-nowrap">
+          Squat {DOTS}
+        </span>
+        <Set set={goal.squat} noBorder />
       </div>
-      <div className="flex items-center">
-        <span className="text-lg">Bench Press: </span>
-        <Set set={goal.benchPress} onChangeSet={() => {}} />
+      <div className="flex items-end justify-center mt-2">
+        <span className="w-1/2 overflow-hidden whitespace-nowrap">
+          Bench Press {DOTS}
+        </span>
+        <Set set={goal.benchPress} noBorder />
       </div>
     </div>
   );

@@ -103,7 +103,7 @@ export default function Journal() {
   };
   return (
     <Page isProtected={true}>
-      <h2 className="text-xl my-8">{date}</h2>
+      <h2 className="text-xl my-6">{date}</h2>
       <div className="divide-y">
         {workouts.map(({ name, sets }, workoutIndex) => (
           <div key={`workout-${workoutIndex}`} className="p-2">

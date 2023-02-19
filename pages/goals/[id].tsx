@@ -8,6 +8,8 @@ import Set from "@/components/set";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
+const DOTS = new Array(100).fill(".").join(" ");
+
 export default function Goal() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -89,7 +91,7 @@ export default function Goal() {
 
   return (
     <Page isProtected={true}>
-      <div className="flex mt-8 mb-4 justify-between">
+      <div className="flex my-6 justify-between">
         <label className="text-lg" htmlFor="name-of-the-goal">
           Name of the goal:
         </label>
@@ -101,29 +103,35 @@ export default function Goal() {
           id="name-of-the-goal"
         />
       </div>
-      <div className="flex my-4 justify-between">
+      <div className="flex my-6 justify-between">
         <label className="text-lg" htmlFor="target-date">
           Target Date:
         </label>
         <input
-          className="text-black"
+          className="text-black border-2 border-indigo-200"
           type="date"
           value={fromIntlFormat(until)}
           onChange={(e) => setUntil(toIntlFormat(e.target.value))}
           id="target-date"
         />
       </div>
-      <div className="flex my-4 justify-between">
-        <span className="text-lg">Deadlift</span>
-        <Set set={deadlift} onChangeSet={setDeadlift} />
+      <div className="flex my-6 justify-between items-end">
+        <span className="text-lg overflow-hidden whitespace-nowrap">
+          Deadlift {DOTS}
+        </span>
+        <Set set={deadlift} onChangeSet={setDeadlift} noBorder />
       </div>
-      <div className="flex my-4 justify-between">
-        <span className="text-lg">Squat</span>
-        <Set set={squat} onChangeSet={setSquat} />
+      <div className="flex my-6 justify-between items-end">
+        <span className="text-lg overflow-hidden whitespace-nowrap">
+          Squat {DOTS}
+        </span>
+        <Set set={squat} onChangeSet={setSquat} noBorder />
       </div>
-      <div className="flex my-4 justify-between">
-        <span className="text-lg">Bench Press</span>
-        <Set set={benchPress} onChangeSet={setBenchPress} />
+      <div className="flex my-6 justify-between items-end">
+        <span className="text-lg overflow-hidden whitespace-nowrap">
+          Bench Press {DOTS}
+        </span>
+        <Set set={benchPress} onChangeSet={setBenchPress} noBorder />
       </div>
       <FloatingButton
         onClick={onSave}

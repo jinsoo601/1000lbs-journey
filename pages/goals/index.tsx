@@ -19,7 +19,7 @@ export default function Goals() {
   }, [session?.user]);
   return (
     <Page isProtected={true}>
-      <h2 className="text-xl my-8">My Goals</h2>
+      <h2 className="text-xl my-6">My Goals</h2>
       <div className="overflow-auto">
         {goals.map((goal) => (
           <GoalCard key={goal.id} goal={goal} />

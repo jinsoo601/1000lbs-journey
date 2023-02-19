@@ -113,7 +113,7 @@ export const getGoal = async (id: string): Promise<TGoal | undefined> => {
 
 export const updateGoal = (id: string, goal: Omit<TGoal, "id">) => {
   const docRef = doc(db, "goals", id);
-  return setDoc(docRef, goal);
+  return updateDoc(docRef, goal);
 };
 
 export const deleteGoal = (id: string) => {
